@@ -1,0 +1,36 @@
+header {
+    /* background-color: blue; */
+    background-image: linear-gradient(to bottom right, #090e6a, #2c91df);
+    color: white;
+    text-align: center;
+    padding: 15px;
+}
+main {
+    display: flex;
+}
+
+aside {
+    margin: 10px;
+}
+
+.city-search {
+    flex-direction: column;
+    margin-top: 5px;
+}
+
+h3 {
+    font-weight: bold;
+}
+.search-input {
+    width: 300px;
+    border-color: lightgrey;
+
+}
+
+.search-btn {
+    width: 100%;;
+}
+
+.city-buttons {
+    width: 100%;
+}
