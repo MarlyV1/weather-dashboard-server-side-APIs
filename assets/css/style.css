@@ -34,3 +34,13 @@ h3 {
 .city-buttons {
     width: 100%;
 }
+
+.btn-primary {
+    background-color: #033c8d8e;  
+    border-color: #033c8d8e;
+}
+
+.btn-primary:hover {
+    background-color: #033c8dba;
+    border-color: #033c8dba;
+}
