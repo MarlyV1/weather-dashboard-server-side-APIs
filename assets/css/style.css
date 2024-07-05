@@ -17,8 +17,8 @@ section {
     width: 70%;
 }
 .display-weather {
-    margin: 40px 10px;
-    width: 95%;
+    margin: 40px 13px;
+    width: 97%;
     text-align: center;
 }
 
@@ -30,6 +30,8 @@ section {
 h3 {
     font-weight: bold;
 }
+
+
 .search-input {
     width: 300px;
     border-color: lightgrey;
@@ -55,16 +57,33 @@ h3 {
 
 .col-sm {
     border: thin solid lightgrey;
+    border-radius: 5px;
     /* height: 190px; */
-    /* margin-top: 5px; */
+    padding: 20px;
+    margin-top: 5px;
+    background-image: linear-gradient(to bottom right, #2c91dfd7, #090e6adb);
+    color: white;
 }
 
 /* .daily-forecast {
     align-items: center;
     margin-left: 0px;
     /* width: 98%; */
-} 
+ 
+.card-header {
+    /* background-image: linear-gradient(to bottom right, #2c91df, #090e6adb); */
+    background-color: #0e3274;
+    color: white;
+    font-weight: bold;
+}
+
 .daily-forecast-title {
     text-align: left;
     font-weight: bold;
+    margin-left: 13px;
+    margin-top: 20px;
+}
+
+.forecast {
+    width: 97%;
 }
