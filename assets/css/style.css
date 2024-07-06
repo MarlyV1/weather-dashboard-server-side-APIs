@@ -9,17 +9,9 @@ main {
     display: flex;
 }
 
+/* Styles the section to search for a city */
 aside {
     margin: 5px 20px;
-}
-
-section {
-    width: 70%;
-}
-.display-weather {
-    margin: 40px 13px;
-    width: 97%;
-    text-align: center;
 }
 
 .city-search {
@@ -27,18 +19,13 @@ section {
     margin-top: 5px;
 }
 
-h3 {
-    font-weight: bold;
-}
-
-
 .search-input {
     width: 300px;
     border-color: lightgrey;
 }
 
 .search-btn {
-    width: 100%;;
+    width: 100%;
 }
 
 .city-buttons {
@@ -55,6 +42,21 @@ h3 {
     border-color: #033c8dba;
 }
 
+/* Stlyes the section to display the weather */
+section {
+    width: 70%;
+}
+
+.display-weather {
+    margin: 40px 13px;
+    width: 97%;
+    text-align: center;
+}
+
+h3 {
+    font-weight: bold;
+}
+
 .col-sm {
     border: thin solid lightgrey;
     border-radius: 5px;
@@ -64,14 +66,8 @@ h3 {
     background-image: linear-gradient(to bottom right, #2c91dfd7, #090e6adb);
     color: white;
 }
-
-/* .daily-forecast {
-    align-items: center;
-    margin-left: 0px;
-    /* width: 98%; */
  
 .card-header {
-    /* background-image: linear-gradient(to bottom right, #2c91df, #090e6adb); */
     background-color: #0e3274;
     color: white;
     font-weight: bold;
@@ -86,4 +82,24 @@ h3 {
 
 .forecast {
     width: 97%;
+}
+
+/* Makes the page responsive */
+@media screen and (max-width: 768px) {
+    main {
+        flex-direction: column;
+    }
+    section {
+        width: 98%;
+        margin-bottom: 20px;
+    }
+    .search-input {
+        width: 174%;
+    }
+}
+
+@media screen and (max-width: 575px) {
+.search-input {
+        width: 100%;
+    }
 }
