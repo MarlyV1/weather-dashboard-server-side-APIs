@@ -26,6 +26,22 @@ const getCoordinates = async (city) => {
     
 };
 
+const diplayForecast = (data) => {
+    data.forEach((forecast) => {
+        const dt = forecast.dt;
+        const date = new Date(dt* 1000);
+        
+        const temp = Math.floor(Math.round((forecast.main.temp - 273.15) * 9/5 + 32));
+        const wind = forecast.wind.speed;
+        const humidity = forecast.main.humidity;
+
+        console.log(date.toLocaleDateString())
+        console.log(`Temp: ${temp}`);
+        console.log(`Wind Speed: ${wind}MPH`);
+        console.log(`Humidity ${humidity}`);
+    })
+}
+
 //Gets the 5 day forecast
 const getForecast = async (city) => {
     const coordinateData = await getCoordinates(city);
@@ -38,9 +54,15 @@ const getForecast = async (city) => {
         const response = await fetch(url);
         const data = await response.json();
         console.log(data);
-        const dt = data.list[0].dt;
-        const date = new Date(dt* 1000);
-        console.log(date.toLocaleDateString())
+        const forecastArray = [
+            data.list[0],
+            data.list[7],
+            data.list[15],
+            data.list[23],
+            data.list[31],
+            data.list[39]
+        ];
+        diplayForecast(forecastArray);
     } catch (error) {
         console.error(error.message);
     }
