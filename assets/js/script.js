@@ -111,39 +111,53 @@ atlanta.addEventListener("click", (e) => {
     e.preventDefault;
     city = 'atlanta';
     getForecast(city);
-})
+});
 
 //Event listener to get the weather for Denver
 denver.addEventListener("click", (e) => {
     e.preventDefault;
     city = 'denver';
     getForecast(city);
-})
+});
 
 //Event listener to get the weather for Seattle
 seattle.addEventListener("click", (e) => {
     e.preventDefault;
     city = 'seattle';
     getForecast(city);
-})
+});
 
 //Event listener to get the weather for San Francisco
 sanFrancisco.addEventListener("click", (e) => {
     e.preventDefault;
     city = 'san francisco';
     getForecast(city);
-})
+});
 
 //Event listener to get the weather for Orlando
 orlando.addEventListener("click", (e) => {
     e.preventDefault;
     city = 'orlando';
     getForecast(city);
-})
+});
 
 //Event listener to get the weather for New York
 newYork.addEventListener("click", (e) => {
     e.preventDefault;
     city = 'new york';
     getForecast(city);
-})
+});
+
+//Event listener to get the weather for Chicago
+chicago.addEventListener("click", (e) => {
+    e.preventDefault;
+    city = 'chicago';
+    getForecast(city);
+});
+
+//Event listener to get the weather for Austin
+austin.addEventListener("click", (e) => {
+    e.preventDefault;
+    city = 'austin';
+    getForecast(city);
+});
