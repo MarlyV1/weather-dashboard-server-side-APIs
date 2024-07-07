@@ -32,12 +32,22 @@ const getCoordinates = async (city) => {
 
 const searchHistoryInfo = () => {
     let searchHistory = JSON.parse(localStorage.getItem('searchHistoryCities')) || [];
-
+    console.log(searchHistory);
     let userCities = {searchedCity: searchInput.value};
 
-    searchHistory.push(userCities);
+    searchHistory.push(userCities)
+    console.log(searchHistory);
+    localStorage.setItem("searchHistoryCities", JSON.stringify(searchHistory));
+};
 
-    localStorage.setItem('searchHistoryCities', JSON.stringify(userCities));
+const displaySearchHistory = () => {
+    const displayHistory = JSON.parse(localStorage.getItem('searchHistoryCities'))
+    displayHistory.forEach((data) => {
+        cityBtns.innerHTML += `
+        <button class="atlanta btn-color btn btn-primary" type="button">${data.searchedCity}</button>
+        `
+    });
+    console.log(displayHistory);
 }
 
 //A markdown for the weather data 
@@ -88,6 +98,7 @@ const diplayForecast = (current, forecastArray) => {
 
     //Changes the style of the weather section so it can be displayed
     weatherSection.style.display = 'block';
+    displaySearchHistory();
 
 };
 
@@ -126,60 +137,63 @@ searchBtn.addEventListener("click", (e) => {
     e.preverntDefault;
     city = searchInput.value
     getForecast(city);
+    searchHistoryInfo();
 });
 
-//Event listener to get the weather for Atlanta
-atlanta.addEventListener("click", (e) => {
-    e.preventDefault;
-    city = 'atlanta';
-    getForecast(city);
-});
+displaySearchHistory();
 
-//Event listener to get the weather for Denver
-denver.addEventListener("click", (e) => {
-    e.preventDefault;
-    city = 'denver';
-    getForecast(city);
-});
+// //Event listener to get the weather for Atlanta
+// atlanta.addEventListener("click", (e) => {
+//     e.preventDefault;
+//     city = 'atlanta';
+//     getForecast(city);
+// });
 
-//Event listener to get the weather for Seattle
-seattle.addEventListener("click", (e) => {
-    e.preventDefault;
-    city = 'seattle';
-    getForecast(city);
-});
+// //Event listener to get the weather for Denver
+// denver.addEventListener("click", (e) => {
+//     e.preventDefault;
+//     city = 'denver';
+//     getForecast(city);
+// });
 
-//Event listener to get the weather for San Francisco
-sanFrancisco.addEventListener("click", (e) => {
-    e.preventDefault;
-    city = 'san francisco';
-    getForecast(city);
-});
+// //Event listener to get the weather for Seattle
+// seattle.addEventListener("click", (e) => {
+//     e.preventDefault;
+//     city = 'seattle';
+//     getForecast(city);
+// });
 
-//Event listener to get the weather for Orlando
-orlando.addEventListener("click", (e) => {
-    e.preventDefault;
-    city = 'orlando';
-    getForecast(city);
-});
+// //Event listener to get the weather for San Francisco
+// sanFrancisco.addEventListener("click", (e) => {
+//     e.preventDefault;
+//     city = 'san francisco';
+//     getForecast(city);
+// });
 
-//Event listener to get the weather for New York
-newYork.addEventListener("click", (e) => {
-    e.preventDefault;
-    city = 'new york';
-    getForecast(city);
-});
+// //Event listener to get the weather for Orlando
+// orlando.addEventListener("click", (e) => {
+//     e.preventDefault;
+//     city = 'orlando';
+//     getForecast(city);
+// });
 
-//Event listener to get the weather for Chicago
-chicago.addEventListener("click", (e) => {
-    e.preventDefault;
-    city = 'chicago';
-    getForecast(city);
-});
+// //Event listener to get the weather for New York
+// newYork.addEventListener("click", (e) => {
+//     e.preventDefault;
+//     city = 'new york';
+//     getForecast(city);
+// });
 
-//Event listener to get the weather for Austin
-austin.addEventListener("click", (e) => {
-    e.preventDefault;
-    city = 'austin';
-    getForecast(city);
-});
+// //Event listener to get the weather for Chicago
+// chicago.addEventListener("click", (e) => {
+//     e.preventDefault;
+//     city = 'chicago';
+//     getForecast(city);
+// });
+
+// //Event listener to get the weather for Austin
+// austin.addEventListener("click", (e) => {
+//     e.preventDefault;
+//     city = 'austin';
+//     getForecast(city);
+// });
