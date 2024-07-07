@@ -1,3 +1,4 @@
+const weatherSection = document.getElementById('weather-section');
 const searchInput = document.querySelector('.search-input');
 const searchBtn = document.querySelector('.search-btn');
 const atlanta = document.querySelector('.atlanta');
@@ -71,6 +72,8 @@ const diplayForecast = (current, forecastArray) => {
         dailyForecast += dailyForecastMarkdown(data);
     });
     displayDailyForecast.innerHTML = dailyForecast;
+    weatherSection.style.display = 'block';
+
 };
 
 //Gets the 5 day forecast

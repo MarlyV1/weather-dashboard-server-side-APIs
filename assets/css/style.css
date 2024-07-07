@@ -47,6 +47,10 @@ section {
     width: 70%;
 }
 
+#weather-section {
+    display: none;
+}
+
 .display-weather {
     margin: 40px 13px;
     width: 97%;
@@ -73,6 +77,9 @@ h3 {
     font-weight: bold;
 }
 
+.card-body {
+    background-color: #0e32743a;
+}
 .daily-forecast-title {
     text-align: left;
     font-weight: bold;
