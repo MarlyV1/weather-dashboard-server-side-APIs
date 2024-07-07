@@ -1,6 +1,6 @@
 const weatherSection = document.getElementById('weather-section');
 const searchInput = document.querySelector('.search-input');
-const searchBtn = document.querySelector('.search-btn');
+const searchBtn = document.getElementById('form');
 const cityBtns = document.querySelector('.city-buttons');
 const atlanta = document.querySelector('.atlanta');
 const denver = document.querySelector('.denver');
@@ -24,7 +24,7 @@ const getCoordinates = async (city) => {
     try {
         const response = await fetch(url);
         const data = await response.json();
-        return coordinates = data[0] 
+        return coordinates = data[0]
     } catch (error) {
         console.error(error.message);
     }
@@ -33,7 +33,7 @@ const getCoordinates = async (city) => {
 const searchHistoryInfo = () => {
     let searchHistory = JSON.parse(localStorage.getItem('searchHistoryCities')) || [];
     console.log(searchHistory);
-    let userCities = {searchedCity: searchInput.value};
+    let userCities = { searchedCity: searchInput.value };
 
     searchHistory.push(userCities)
     console.log(searchHistory);
@@ -44,23 +44,33 @@ const displaySearchHistory = () => {
     let history = '';
     const displayHistory = JSON.parse(localStorage.getItem('searchHistoryCities'))
 
-    displayHistory.forEach((data) => {
-        history += `
-        <button class="atlanta btn-color btn btn-primary" type="button">${data.searchedCity}</button>
-        `
-    });
-    cityBtns.innerHTML = history;
+    if (displayHistory === null) {
+        return;
+    } else {
+        displayHistory.forEach((data) => {
+            history += `
+        <button class="${data.searchedCity} btn-color btn btn-primary" type="button">${data.searchedCity}</button>
+        `;
 
-    console.log(displayHistory);
+            // `${data.searchedCity}`.addEventListener("click", (e) => {
+            //     e.preventDefault;
+            //     city = `${data.searchedCity}`;
+            //     getForecast(city);
+            // });
+        });
+        cityBtns.innerHTML = history;
+
+        console.log(displayHistory);
+    }
 }
 
 //A markdown for the weather data 
 const dailyForecastMarkdown = (data) => {
     const dt = data.dt;
-    const date = (new Date(dt* 1000)).toLocaleDateString();
+    const date = (new Date(dt * 1000)).toLocaleDateString();
 
     const icon = data.weather[0].icon;
-    const temp = Math.floor(Math.round((data.main.temp - 273.15) * 9/5 + 32));
+    const temp = Math.floor(Math.round((data.main.temp - 273.15) * 9 / 5 + 32));
     const wind = data.wind.speed;
     const humidity = data.main.humidity;
 
@@ -81,9 +91,9 @@ const diplayForecast = (current, forecastArray) => {
     let dailyForecast = '';
     const currentWeather = current.list[0];
     const dt = currentWeather.dt;
-    const currentDate = (new Date(dt* 1000)).toLocaleDateString();
+    const currentDate = (new Date(dt * 1000)).toLocaleDateString();
     const icon = currentWeather.weather[0].icon;
-    const temp = Math.floor(Math.round((currentWeather.main.temp - 273.15) * 9/5 + 32));
+    const temp = Math.floor(Math.round((currentWeather.main.temp - 273.15) * 9 / 5 + 32));
 
     //Displays the current weather data in the card body
     date.innerText = `${currentDate}`
@@ -103,7 +113,6 @@ const diplayForecast = (current, forecastArray) => {
     //Changes the style of the weather section so it can be displayed
     weatherSection.style.display = 'block';
     displaySearchHistory();
-
 };
 
 //Gets the 5 day forecast
@@ -114,7 +123,7 @@ const getForecast = async (city) => {
     const lon = coordinateData.lon;
 
     const url = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`;
-    
+
     try {
         //Fetches the weather data
         const response = await fetch(url);
@@ -129,24 +138,42 @@ const getForecast = async (city) => {
             data.list[31],
             data.list[39]
         ];
-        diplayForecast(data,forecastArray);
+        diplayForecast(data, forecastArray);
     } catch (error) {
         console.error(error.message);
     }
-    
 };
 
-//Event listener for the search button
-searchBtn.addEventListener("click", (e) => {
-    e.preverntDefault;
-    city = searchInput.value
-    getForecast(city);
-    searchHistoryInfo();
-});
+//Checks to see if a duplicate city is being added to local storage
+const checkForDuplicateCity = (city) => {
+    if (city != "") {
+        const historyInfo = JSON.parse(localStorage.getItem('searchHistoryCities'))
+        if (historyInfo === null) {
+            searchHistoryInfo();
+        } else {
+            console.log(historyInfo)
+            const savedCity = historyInfo.find(({ searchedCity }) => searchedCity === city)
+            console.log(historyInfo.find(({ searchedCity }) => searchedCity === city))
+            if (savedCity === undefined) {
+                searchHistoryInfo();
+            };
+        };
+    };
+}
 
 displaySearchHistory();
 
-// //Event listener to get the weather for Atlanta
+//Event listener for the search button
+searchBtn.addEventListener("submit", (e) => {
+    e.preventDefault();
+    city = searchInput.value;
+    getForecast(city);
+    checkForDuplicateCity(city);
+});
+
+
+
+//Event listener to get the weather for Atlanta
 // atlanta.addEventListener("click", (e) => {
 //     e.preventDefault;
 //     city = 'atlanta';
