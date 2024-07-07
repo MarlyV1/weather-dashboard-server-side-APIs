@@ -31,7 +31,8 @@ const getCoordinates = async (city) => {
 const dailyForecastMarkdown = (data) => {
     const dt = data.dt;
     const date = (new Date(dt* 1000)).toLocaleDateString();
-    
+
+    const icon = data.weather[0].icon;
     const temp = Math.floor(Math.round((data.main.temp - 273.15) * 9/5 + 32));
     const wind = data.wind.speed;
     const humidity = data.main.humidity;
@@ -39,6 +40,7 @@ const dailyForecastMarkdown = (data) => {
     const markdown = `
         <div class="col-sm">
             <h6>${date}</h6>
+            <img src="https://openweathermap.org/img/wn/${icon}@2x.png" alt="Weather Icon">
             <h6>Temp: ${temp}°F</h6>
             <h6>Wind: ${wind}MPH</h6>
             <h6>Humidity: ${humidity}%</h6>
@@ -53,12 +55,13 @@ const diplayForecast = (current, forecastArray) => {
     const currentWeather = current.list[0];
     const dt = currentWeather.dt;
     const currentDate = (new Date(dt* 1000)).toLocaleDateString();
-    
+    const icon = currentWeather.weather[0].icon;
     const temp = Math.floor(Math.round((currentWeather.main.temp - 273.15) * 9/5 + 32));
 
     date.innerText = `${currentDate}`
     displayCurrentWeather.innerHTML = `
         <h3 class="card-title">${current.city.name}</h3>
+        <img src="https://openweathermap.org/img/wn/${icon}@2x.png" alt="Weather Icon">
         <h6>Temp: ${temp}°F</h6>
         <h6>Wind: ${currentWeather.wind.speed}MPH</h6>
         <h6>Humidity: ${currentWeather.main.humidity}%</h6>
