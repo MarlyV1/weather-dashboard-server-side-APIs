@@ -41,12 +41,16 @@ const searchHistoryInfo = () => {
 };
 
 const displaySearchHistory = () => {
+    let history = '';
     const displayHistory = JSON.parse(localStorage.getItem('searchHistoryCities'))
+
     displayHistory.forEach((data) => {
-        cityBtns.innerHTML += `
+        history += `
         <button class="atlanta btn-color btn btn-primary" type="button">${data.searchedCity}</button>
         `
     });
+    cityBtns.innerHTML = history;
+
     console.log(displayHistory);
 }
 
