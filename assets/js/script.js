@@ -1,6 +1,7 @@
 const weatherSection = document.getElementById('weather-section');
 const searchInput = document.querySelector('.search-input');
 const searchBtn = document.querySelector('.search-btn');
+const cityBtns = document.querySelector('.city-buttons');
 const atlanta = document.querySelector('.atlanta');
 const denver = document.querySelector('.denver');
 const seattle = document.querySelector('.seattle');
@@ -29,6 +30,16 @@ const getCoordinates = async (city) => {
     }
 };
 
+const searchHistoryInfo = () => {
+    let searchHistory = JSON.parse(localStorage.getItem('searchHistoryCities')) || [];
+
+    let userCities = {searchedCity: searchInput.value};
+
+    searchHistory.push(userCities);
+
+    localStorage.setItem('searchHistoryCities', JSON.stringify(userCities));
+}
+
 //A markdown for the weather data 
 const dailyForecastMarkdown = (data) => {
     const dt = data.dt;
@@ -44,7 +55,7 @@ const dailyForecastMarkdown = (data) => {
             <h6>${date}</h6>
             <img src="https://openweathermap.org/img/wn/${icon}@2x.png" alt="Weather Icon">
             <h6>Temp: ${temp}°F</h6>
-            <h6>Wind: ${wind}MPH</h6>
+            <h6>Wind: ${wind} MPH</h6>
             <h6>Humidity: ${humidity}%</h6>
         </div>
     `;
@@ -66,7 +77,7 @@ const diplayForecast = (current, forecastArray) => {
         <h3 class="card-title">${current.city.name}</h3>
         <img src="https://openweathermap.org/img/wn/${icon}@2x.png" alt="Weather Icon">
         <h6>Temp: ${temp}°F</h6>
-        <h6>Wind: ${currentWeather.wind.speed}MPH</h6>
+        <h6>Wind: ${currentWeather.wind.speed} MPH</h6>
         <h6>Humidity: ${currentWeather.main.humidity}%</h6>
         `
     //Displays the five day forecast below the card body
