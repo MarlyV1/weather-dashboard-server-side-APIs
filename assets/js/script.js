@@ -112,3 +112,17 @@ atlanta.addEventListener("click", (e) => {
     city = 'atlanta';
     getForecast(city);
 })
+
+//Event listener to get the weather for Denver
+denver.addEventListener("click", (e) => {
+    e.preventDefault;
+    city = 'denver';
+    getForecast(city);
+})
+
+//Event listener to get the weather for Seattle
+seattle.addEventListener("click", (e) => {
+    e.preventDefault;
+    city = 'seattle';
+    getForecast(city);
+})
