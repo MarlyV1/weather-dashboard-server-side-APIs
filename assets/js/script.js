@@ -8,8 +8,9 @@ const orlando = document.querySelector('.orlando');
 const newYork = document.querySelector('.new-york');
 const chicago = document.querySelector('.chicago');
 const austin = document.querySelector('.austin');
-const display = document.querySelector('.display-forecast');
+const displayDailyForecast = document.querySelector('.display-forecast');
 const displayCurrentWeather = document.querySelector('.card-body');
+const date = document.querySelector('.card-header');
 const apiKey = `c56024321501e8e5ba43555acb3aab75`;
 let city;
 
@@ -25,38 +26,49 @@ const getCoordinates = async (city) => {
     } catch (error) {
         console.error(error.message);
     }
-    
 };
 
-const diplayForecast = (current, forecast) => {
+const dailyForecastMarkdown = (data) => {
+    const dt = data.dt;
+    const date = (new Date(dt* 1000)).toLocaleDateString();
+    
+    const temp = Math.floor(Math.round((data.main.temp - 273.15) * 9/5 + 32));
+    const wind = data.wind.speed;
+    const humidity = data.main.humidity;
 
-    const currentWeather = current.list[0];
-
-    displayCurrentWeather.innerHTML = `
-                <h3 class="card-title">${current.city.name}</h3>
-                <h6>Temp: ${currentWeather.main.temp}</h6>
-                <h6>Wind: ${currentWeather.wind.speed}</h6>
-                <h6>Humidity: ${currentWeather.main.humidity}</h6>
-                `
-
-    forecast.forEach((data) => {
-        const dt = data.dt;
-        const date = (new Date(dt* 1000)).toLocaleDateString();
-        
-        const temp = Math.floor(Math.round((data.main.temp - 273.15) * 9/5 + 32));
-        const wind = data.wind.speed;
-        const humidity = data.main.humidity;
-
-        display.innerHTML += `
-            <div class="col-sm">
-                <h6>${date}</h6>
-                <h6>Temp: ${temp}</h6>
-                <h6>Wind: ${wind}</h6>
-                <h6>Humidity: ${humidity}</h6>
-            </div>
-        `
-    })
+    const markdown = `
+        <div class="col-sm">
+            <h6>${date}</h6>
+            <h6>Temp: ${temp}°F</h6>
+            <h6>Wind: ${wind}MPH</h6>
+            <h6>Humidity: ${humidity}%</h6>
+        </div>
+    `;
+    return markdown;
 }
+
+
+const diplayForecast = (current, forecastArray) => {
+    let dailyForecast = '';
+    const currentWeather = current.list[0];
+    const dt = currentWeather.dt;
+    const currentDate = (new Date(dt* 1000)).toLocaleDateString();
+    
+    const temp = Math.floor(Math.round((currentWeather.main.temp - 273.15) * 9/5 + 32));
+
+    date.innerText = `${currentDate}`
+    displayCurrentWeather.innerHTML = `
+        <h3 class="card-title">${current.city.name}</h3>
+        <h6>Temp: ${temp}°F</h6>
+        <h6>Wind: ${currentWeather.wind.speed}MPH</h6>
+        <h6>Humidity: ${currentWeather.main.humidity}%</h6>
+        `
+
+    forecastArray.forEach((data) => {
+        dailyForecast += dailyForecastMarkdown(data);
+    });
+    displayDailyForecast.innerHTML = dailyForecast;
+};
 
 //Gets the 5 day forecast
 const getForecast = async (city) => {
