@@ -126,3 +126,24 @@ seattle.addEventListener("click", (e) => {
     city = 'seattle';
     getForecast(city);
 })
+
+//Event listener to get the weather for San Francisco
+sanFrancisco.addEventListener("click", (e) => {
+    e.preventDefault;
+    city = 'san francisco';
+    getForecast(city);
+})
+
+//Event listener to get the weather for Orlando
+orlando.addEventListener("click", (e) => {
+    e.preventDefault;
+    city = 'orlando';
+    getForecast(city);
+})
+
+//Event listener to get the weather for New York
+newYork.addEventListener("click", (e) => {
+    e.preventDefault;
+    city = 'new york';
+    getForecast(city);
+})
