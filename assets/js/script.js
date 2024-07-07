@@ -8,6 +8,8 @@ const orlando = document.querySelector('.orlando');
 const newYork = document.querySelector('.new-york');
 const chicago = document.querySelector('.chicago');
 const austin = document.querySelector('.austin');
+const display = document.querySelector('.display-forecast');
+const displayCurrentWeather = document.querySelector('.card-body');
 const apiKey = `c56024321501e8e5ba43555acb3aab75`;
 let city;
 
@@ -26,19 +28,33 @@ const getCoordinates = async (city) => {
     
 };
 
-const diplayForecast = (data) => {
-    data.forEach((forecast) => {
-        const dt = forecast.dt;
-        const date = new Date(dt* 1000);
-        
-        const temp = Math.floor(Math.round((forecast.main.temp - 273.15) * 9/5 + 32));
-        const wind = forecast.wind.speed;
-        const humidity = forecast.main.humidity;
+const diplayForecast = (current, forecast) => {
 
-        console.log(date.toLocaleDateString())
-        console.log(`Temp: ${temp}`);
-        console.log(`Wind Speed: ${wind}MPH`);
-        console.log(`Humidity ${humidity}`);
+    const currentWeather = current.list[0];
+
+    displayCurrentWeather.innerHTML = `
+                <h3 class="card-title">${current.city.name}</h3>
+                <h6>Temp: ${currentWeather.main.temp}</h6>
+                <h6>Wind: ${currentWeather.wind.speed}</h6>
+                <h6>Humidity: ${currentWeather.main.humidity}</h6>
+                `
+
+    forecast.forEach((data) => {
+        const dt = data.dt;
+        const date = (new Date(dt* 1000)).toLocaleDateString();
+        
+        const temp = Math.floor(Math.round((data.main.temp - 273.15) * 9/5 + 32));
+        const wind = data.wind.speed;
+        const humidity = data.main.humidity;
+
+        display.innerHTML += `
+            <div class="col-sm">
+                <h6>${date}</h6>
+                <h6>Temp: ${temp}</h6>
+                <h6>Wind: ${wind}</h6>
+                <h6>Humidity: ${humidity}</h6>
+            </div>
+        `
     })
 }
 
@@ -55,14 +71,13 @@ const getForecast = async (city) => {
         const data = await response.json();
         console.log(data);
         const forecastArray = [
-            data.list[0],
             data.list[7],
             data.list[15],
             data.list[23],
             data.list[31],
             data.list[39]
         ];
-        diplayForecast(forecastArray);
+        diplayForecast(data,forecastArray);
     } catch (error) {
         console.error(error.message);
     }
