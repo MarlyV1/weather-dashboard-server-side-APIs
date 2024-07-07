@@ -29,6 +29,7 @@ const getCoordinates = async (city) => {
     }
 };
 
+//A markdown for the weather data 
 const dailyForecastMarkdown = (data) => {
     const dt = data.dt;
     const date = (new Date(dt* 1000)).toLocaleDateString();
@@ -50,7 +51,7 @@ const dailyForecastMarkdown = (data) => {
     return markdown;
 }
 
-
+//Uses the markdown to display the weather data
 const diplayForecast = (current, forecastArray) => {
     let dailyForecast = '';
     const currentWeather = current.list[0];
@@ -59,6 +60,7 @@ const diplayForecast = (current, forecastArray) => {
     const icon = currentWeather.weather[0].icon;
     const temp = Math.floor(Math.round((currentWeather.main.temp - 273.15) * 9/5 + 32));
 
+    //Displays the current weather data in the card body
     date.innerText = `${currentDate}`
     displayCurrentWeather.innerHTML = `
         <h3 class="card-title">${current.city.name}</h3>
@@ -67,17 +69,20 @@ const diplayForecast = (current, forecastArray) => {
         <h6>Wind: ${currentWeather.wind.speed}MPH</h6>
         <h6>Humidity: ${currentWeather.main.humidity}%</h6>
         `
-
+    //Displays the five day forecast below the card body
     forecastArray.forEach((data) => {
         dailyForecast += dailyForecastMarkdown(data);
     });
     displayDailyForecast.innerHTML = dailyForecast;
+
+    //Changes the style of the weather section so it can be displayed
     weatherSection.style.display = 'block';
 
 };
 
 //Gets the 5 day forecast
 const getForecast = async (city) => {
+    //Uses the coordinates to get the weather forecast
     const coordinateData = await getCoordinates(city);
     const lat = coordinateData.lat;
     const lon = coordinateData.lon;
@@ -85,9 +90,12 @@ const getForecast = async (city) => {
     const url = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`;
     
     try {
+        //Fetches the weather data
         const response = await fetch(url);
         const data = await response.json();
         console.log(data);
+
+        //Puts the daily forecast into an array
         const forecastArray = [
             data.list[7],
             data.list[15],
