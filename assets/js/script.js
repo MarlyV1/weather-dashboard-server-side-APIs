@@ -6,7 +6,6 @@ const atlanta = document.querySelector('.atlanta');
 const denver = document.querySelector('.denver');
 const seattle = document.querySelector('.seattle');
 const sanFrancisco = document.querySelector('.san-francisco');
-const orlando = document.querySelector('.orlando');
 const newYork = document.querySelector('.new-york');
 const chicago = document.querySelector('.chicago');
 const austin = document.querySelector('.austin');
@@ -24,21 +23,29 @@ const getCoordinates = async (city) => {
     try {
         const response = await fetch(url);
         const data = await response.json();
+        checkForDuplicateCity(data[0].name);
         return coordinates = data[0]
     } catch (error) {
         console.error(error.message);
     }
 };
 
-const searchHistoryInfo = () => {
+const searchHistoryInfo = (city) => {
     let searchHistory = JSON.parse(localStorage.getItem('searchHistoryCities')) || [];
     console.log(searchHistory);
-    let userCities = { searchedCity: searchInput.value };
+    let userCities = { searchedCity: city };
 
     searchHistory.push(userCities)
     console.log(searchHistory);
     localStorage.setItem("searchHistoryCities", JSON.stringify(searchHistory));
 };
+
+
+function click(city) {
+    console.log(city)
+    getForecast(city);
+};
+
 
 const displaySearchHistory = () => {
     let history = '';
@@ -47,22 +54,16 @@ const displaySearchHistory = () => {
     if (displayHistory === null) {
         return;
     } else {
+        cityBtns.innerHTML = ''
         displayHistory.forEach((data) => {
-            history += `
-        <button class="${data.searchedCity} btn-color btn btn-primary" type="button">${data.searchedCity}</button>
-        `;
-
-            // `${data.searchedCity}`.addEventListener("click", (e) => {
-            //     e.preventDefault;
-            //     city = `${data.searchedCity}`;
-            //     getForecast(city);
-            // });
+            const btn = document.createElement('button');
+            btn.onclick = () => click(data.searchedCity);
+            btn.textContent = data.searchedCity;
+            btn.classList.add('btn-color', 'btn', 'btn-primary');
+            cityBtns.append(btn);
         });
-        cityBtns.innerHTML = history;
-
-        console.log(displayHistory);
-    }
-}
+    };
+};
 
 //A markdown for the weather data 
 const dailyForecastMarkdown = (data) => {
@@ -149,13 +150,13 @@ const checkForDuplicateCity = (city) => {
     if (city != "") {
         const historyInfo = JSON.parse(localStorage.getItem('searchHistoryCities'))
         if (historyInfo === null) {
-            searchHistoryInfo();
+            searchHistoryInfo(city);
         } else {
             console.log(historyInfo)
             const savedCity = historyInfo.find(({ searchedCity }) => searchedCity === city)
             console.log(historyInfo.find(({ searchedCity }) => searchedCity === city))
             if (savedCity === undefined) {
-                searchHistoryInfo();
+                searchHistoryInfo(city);
             };
         };
     };
@@ -168,7 +169,6 @@ searchBtn.addEventListener("submit", (e) => {
     e.preventDefault();
     city = searchInput.value;
     getForecast(city);
-    checkForDuplicateCity(city);
 });
 
 
