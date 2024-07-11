@@ -48,7 +48,6 @@ function click(city) {
 
 
 const displaySearchHistory = () => {
-    let history = '';
     const displayHistory = JSON.parse(localStorage.getItem('searchHistoryCities'))
 
     if (displayHistory === null) {
@@ -147,20 +146,18 @@ const getForecast = async (city) => {
 
 //Checks to see if a duplicate city is being added to local storage
 const checkForDuplicateCity = (city) => {
-    if (city != "") {
-        const historyInfo = JSON.parse(localStorage.getItem('searchHistoryCities'))
-        if (historyInfo === null) {
+    const historyInfo = JSON.parse(localStorage.getItem('searchHistoryCities'))
+    if (historyInfo === null) {
+        searchHistoryInfo(city);
+    } else {
+        console.log(historyInfo)
+        const savedCity = historyInfo.find(({ searchedCity }) => searchedCity === city)
+        console.log(historyInfo.find(({ searchedCity }) => searchedCity === city))
+        if (savedCity === undefined) {
             searchHistoryInfo(city);
-        } else {
-            console.log(historyInfo)
-            const savedCity = historyInfo.find(({ searchedCity }) => searchedCity === city)
-            console.log(historyInfo.find(({ searchedCity }) => searchedCity === city))
-            if (savedCity === undefined) {
-                searchHistoryInfo(city);
-            };
         };
     };
-}
+};
 
 displaySearchHistory();
 
@@ -170,61 +167,3 @@ searchBtn.addEventListener("submit", (e) => {
     city = searchInput.value;
     getForecast(city);
 });
-
-
-
-//Event listener to get the weather for Atlanta
-// atlanta.addEventListener("click", (e) => {
-//     e.preventDefault;
-//     city = 'atlanta';
-//     getForecast(city);
-// });
-
-// //Event listener to get the weather for Denver
-// denver.addEventListener("click", (e) => {
-//     e.preventDefault;
-//     city = 'denver';
-//     getForecast(city);
-// });
-
-// //Event listener to get the weather for Seattle
-// seattle.addEventListener("click", (e) => {
-//     e.preventDefault;
-//     city = 'seattle';
-//     getForecast(city);
-// });
-
-// //Event listener to get the weather for San Francisco
-// sanFrancisco.addEventListener("click", (e) => {
-//     e.preventDefault;
-//     city = 'san francisco';
-//     getForecast(city);
-// });
-
-// //Event listener to get the weather for Orlando
-// orlando.addEventListener("click", (e) => {
-//     e.preventDefault;
-//     city = 'orlando';
-//     getForecast(city);
-// });
-
-// //Event listener to get the weather for New York
-// newYork.addEventListener("click", (e) => {
-//     e.preventDefault;
-//     city = 'new york';
-//     getForecast(city);
-// });
-
-// //Event listener to get the weather for Chicago
-// chicago.addEventListener("click", (e) => {
-//     e.preventDefault;
-//     city = 'chicago';
-//     getForecast(city);
-// });
-
-// //Event listener to get the weather for Austin
-// austin.addEventListener("click", (e) => {
-//     e.preventDefault;
-//     city = 'austin';
-//     getForecast(city);
-// });
