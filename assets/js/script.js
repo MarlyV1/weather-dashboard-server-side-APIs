@@ -2,13 +2,6 @@ const weatherSection = document.getElementById('weather-section');
 const searchInput = document.querySelector('.search-input');
 const searchBtn = document.getElementById('form');
 const cityBtns = document.querySelector('.city-buttons');
-const atlanta = document.querySelector('.atlanta');
-const denver = document.querySelector('.denver');
-const seattle = document.querySelector('.seattle');
-const sanFrancisco = document.querySelector('.san-francisco');
-const newYork = document.querySelector('.new-york');
-const chicago = document.querySelector('.chicago');
-const austin = document.querySelector('.austin');
 const displayDailyForecast = document.querySelector('.display-forecast');
 const displayCurrentWeather = document.querySelector('.card-body');
 const date = document.querySelector('.card-header');
@@ -30,6 +23,7 @@ const getCoordinates = async (city) => {
     }
 };
 
+//Adds the searched cities to local storage
 const searchHistoryInfo = (city) => {
     let searchHistory = JSON.parse(localStorage.getItem('searchHistoryCities')) || [];
     console.log(searchHistory);
@@ -40,13 +34,13 @@ const searchHistoryInfo = (city) => {
     localStorage.setItem("searchHistoryCities", JSON.stringify(searchHistory));
 };
 
-
+//Displays the weather forecast for a city when that search history button is clicked
 function click(city) {
     console.log(city)
     getForecast(city);
 };
 
-
+//Displays the cities from local storage to the search history
 const displaySearchHistory = () => {
     const displayHistory = JSON.parse(localStorage.getItem('searchHistoryCities'))
 
