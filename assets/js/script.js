@@ -115,7 +115,7 @@ const getForecast = async (city) => {
     const lat = currentWeather.coord.lat;
     const lon = currentWeather.coord.lon;
 
-    const url = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+    const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`;
 
     try {
         //Fetches the weather data
