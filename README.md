@@ -9,6 +9,6 @@ The motivation behind this project was to create an application that allows the 
 
 After the user inputs a city into the search field, they are presented with the current weather conditions and a 5-day forecast. Once the weather conditions are displayed, the user is able to see the city name and date along with the temperature, humidity, and wind speed. That city is also added to the search history on the left-hand side. If the user clicks on a city in the search history, they are presented with that the forecast for that city.
 
-
+<a href="https://marlyv1.github.io/weather-dashboard-server-side-APIs/">Deployed Application</a>
 
 ![alt text](assets/images/screenshot.png)
