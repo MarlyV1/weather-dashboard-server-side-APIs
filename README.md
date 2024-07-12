@@ -2,17 +2,13 @@
 
 ## Description
 
-Provide a short description explaining the what, why, and how of your project. Use the following questions as a guide:
+The motivation behind this project was to create an application that allows the user to view the daily forecast for their city and other cities they choose to search for. By creating this project I was able to gain more experience with server-side APIs in order to retrieve the weather data. That data was then used to dynamically update the HTML and CSS so the weather forecast could be displayed to the user. This also allowed me to use local storage to store persistent data of the searched cities and then display them on the search history.
 
-- What was your motivation?
-- Why did you build this project? (Note: the answer is not "Because it was a homework assignment.")
-- What problem does it solve?
-- What did you learn?
 
 ## Usage
 
-Provide instructions and examples for use. Include screenshots as needed.
+After the user inputs a city into the search field, they are presented with the current weather conditions and a 5-day forecast. Once the weather conditions are displayed, the user is able to see the city name and date along with the temperature, humidity, and wind speed. That city is also added to the search history on the left-hand side. If the user clicks on a city in the search history, they are presented with that the forecast for that city.
 
-To add a screenshot, create an `assets/images` folder in your repository and upload your screenshot to it. Then, using the relative filepath, add it to your README using the following syntax:
+
 
 ![alt text](assets/images/screenshot.png)
